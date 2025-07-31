@@ -1,11 +1,17 @@
-const express = require('express')
-const router = express.Router()
-const controller = require('../controllers/reviewController')
+const express = require('express');
+const router = express.Router();
+const reviewController = require('../controllers/reviewController');
 
-// GET reviews by movie ID
-router.get('/:movieId', controller.getByMovieId)
+// GET all reviews for a movie
+router.get('/:movieId', reviewController.getReviews);
 
-// POST new review
-router.post('/', controller.create)
+// POST create a new review
+router.post('/', reviewController.createReview);
 
-module.exports = router
+// PUT update a review
+router.put('/:id', reviewController.updateReview);
+
+// DELETE remove a review
+router.delete('/:id', reviewController.deleteReview);
+
+module.exports = router;
