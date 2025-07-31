@@ -1,0 +1,186 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Movies & Reviews API",
+    "version": "1.0.0",
+    "description": "API with full CRUD for Movies and Reviews"
+  },
+  "servers": [
+    {
+      "url": "https://<your-render-app>.onrender.com"
+    },
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/api/movies": {
+      "get": {
+        "summary": "Get all movies",
+        "responses": {
+          "200": {
+            "description": "Returns an array of movies"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new movie",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title",
+                  "director",
+                  "rating"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "director": {
+                    "type": "string"
+                  },
+                  "genre": {
+                    "type": "string"
+                  },
+                  "releaseYear": {
+                    "type": "number"
+                  },
+                  "rating": {
+                    "type": "number"
+                  },
+                  "duration": {
+                    "type": "number"
+                  },
+                  "cast": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Movie created successfully"
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      }
+    },
+    "/api/movies/{id}": {
+      "put": {
+        "summary": "Update a movie by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Movie updated"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "404": {
+            "description": "Movie not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a movie by ID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Movie deleted successfully"
+          },
+          "404": {
+            "description": "Movie not found"
+          }
+        }
+      }
+    },
+    "/api/reviews/{movieId}": {
+      "get": {
+        "summary": "Get all reviews for a movie",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "movieId",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns an array of reviews"
+          }
+        }
+      }
+    },
+    "/api/reviews": {
+      "post": {
+        "summary": "Create a new review",
+        "responses": {
+          "201": {
+            "description": "Review created successfully"
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      }
+    },
+    "/api/reviews/{id}": {
+      "put": {
+        "summary": "Update a review by ID",
+        "responses": {
+          "200": {
+            "description": "Review updated"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "404": {
+            "description": "Review not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a review by ID",
+        "responses": {
+          "200": {
+            "description": "Review deleted successfully"
+          },
+          "404": {
+            "description": "Review not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {},
+  "tags": []
+}

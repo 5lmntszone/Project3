@@ -1,5 +1,5 @@
-const fs = require('fs');
 const swaggerJsDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 const options = {
   definition: {
@@ -10,7 +10,7 @@ const options = {
       description: 'API with full CRUD for Movies and Reviews'
     },
     servers: [
-      { url: 'https://<your-render-app>.onrender.com' },
+      { url: 'https://project3-zo0c.onrender.com' },
       { url: 'http://localhost:3000' }
     ]
   },
@@ -18,5 +18,9 @@ const options = {
 };
 
 const swaggerSpec = swaggerJsDoc(options);
-fs.writeFileSync('./swagger.json', JSON.stringify(swaggerSpec, null, 2));
-console.log('swagger.json generated');
+
+function swaggerDocs(app) {
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+}
+
+module.exports = swaggerDocs;
