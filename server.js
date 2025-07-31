@@ -2,6 +2,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 require('dotenv').config()
 
+const swaggerDocs = require('./swagger');
+
 const app = express()
 app.use(express.json())
 
@@ -15,6 +17,8 @@ app.use('/api/movies', movieRoutes)
 
 const reviewRoutes = require('./routes/reviewRoutes')
 app.use('/api/reviews', reviewRoutes)
+
+swaggerDocs(app);
 
 // Error handler
 app.use((err, req, res, next) => {
