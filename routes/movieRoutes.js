@@ -64,8 +64,34 @@ router.post('/', movieController.createMovie);
  *       - in: path
  *         name: id
  *         required: true
+ *         description: The movie ID
+ *         schema:
+ *           type: string
  *     requestBody:
  *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               director:
+ *                 type: string
+ *               genre:
+ *                 type: string
+ *               releaseYear:
+ *                 type: number
+ *               rating:
+ *                 type: number
+ *               duration:
+ *                 type: number
+ *               cast:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               description:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Movie updated
@@ -74,6 +100,7 @@ router.post('/', movieController.createMovie);
  *       404:
  *         description: Movie not found
  */
+
 router.put('/:id', movieController.updateMovie);
 
 /**

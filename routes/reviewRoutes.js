@@ -11,6 +11,9 @@ const reviewController = require('../controllers/reviewController');
  *       - in: path
  *         name: movieId
  *         required: true
+ *         description: The ID of the movie
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: Returns an array of reviews
@@ -22,6 +25,29 @@ router.get('/:movieId', reviewController.getReviews);
  * /api/reviews:
  *   post:
  *     summary: Create a new review
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - movieId
+ *               - user
+ *               - rating
+ *               - comment
+ *             properties:
+ *               movieId:
+ *                 type: string
+ *                 description: ID of the movie being reviewed
+ *               user:
+ *                 type: string
+ *               rating:
+ *                 type: number
+ *                 minimum: 0
+ *                 maximum: 10
+ *               comment:
+ *                 type: string
  *     responses:
  *       201:
  *         description: Review created successfully
@@ -35,6 +61,28 @@ router.post('/', reviewController.createReview);
  * /api/reviews/{id}:
  *   put:
  *     summary: Update a review by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the review
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               user:
+ *                 type: string
+ *               rating:
+ *                 type: number
+ *                 minimum: 0
+ *                 maximum: 10
+ *               comment:
+ *                 type: string
  *     responses:
  *       200:
  *         description: Review updated
@@ -50,6 +98,13 @@ router.put('/:id', reviewController.updateReview);
  * /api/reviews/{id}:
  *   delete:
  *     summary: Delete a review by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The ID of the review
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: Review deleted successfully
