@@ -17,7 +17,7 @@ exports.createMovie = async (req, res) => {
     await movie.save();
     res.status(201).json(movie);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ message: error.message }); 
   }
 };
 
@@ -26,7 +26,7 @@ exports.updateMovie = async (req, res) => {
   try {
     const updatedMovie = await Movie.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
-      runValidators: true
+      runValidators: true 
     });
     if (!updatedMovie) {
       return res.status(404).json({ message: 'Movie not found' });
