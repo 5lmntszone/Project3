@@ -31,7 +31,7 @@
     "/auth/github": {
       "get": {
         "summary": "Login with GitHub",
-        "description": "Redirects the user to GitHub for OAuth login.",
+        "description": "**Important:** This route must be opened directly in your browser to complete the GitHub OAuth login flow.   Do **not** use \"Try it out\" from Swagger UI — it will not work due to OAuth redirect requirements.\n",
         "tags": [
           "Auth"
         ],
