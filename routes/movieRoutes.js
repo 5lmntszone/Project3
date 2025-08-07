@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const movieController = require('../controllers/movieController');
-const ensureAuth = require('../middleware/authMiddleware'); 
+const ensureAuth = require('../middleware/authMiddleware');
 
 /**
  * @swagger
  * /api/movies:
  *   get:
  *     summary: Get all movies
+ *     tags:
+ *       - Movies
  *     responses:
  *       200:
  *         description: Returns an array of movies
@@ -19,26 +21,126 @@ router.get('/', movieController.getMovies);
  * /api/movies:
  *   post:
  *     summary: Create a new movie
- *     ...
+ *     tags:
+ *       - Movies
+ *     security:
+ *       - cookieAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - title
+ *               - director
+ *               - rating
+ *             properties:
+ *               title:
+ *                 type: string
+ *               director:
+ *                 type: string
+ *               genre:
+ *                 type: string
+ *               releaseYear:
+ *                 type: number
+ *               rating:
+ *                 type: number
+ *               duration:
+ *                 type: number
+ *               cast:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               description:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Movie created successfully
+ *       400:
+ *         description: Validation error
+ *       401:
+ *         description: Unauthorized
  */
-router.post('/', ensureAuth, movieController.createMovie); 
+router.post('/', ensureAuth, movieController.createMovie);
 
 /**
  * @swagger
  * /api/movies/{id}:
  *   put:
  *     summary: Update a movie by ID
- *     ...
+ *     tags:
+ *       - Movies
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The movie ID
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               director:
+ *                 type: string
+ *               genre:
+ *                 type: string
+ *               releaseYear:
+ *                 type: number
+ *               rating:
+ *                 type: number
+ *               duration:
+ *                 type: number
+ *               cast:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *               description:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Movie updated
+ *       400:
+ *         description: Validation error
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Movie not found
  */
-router.put('/:id', ensureAuth, movieController.updateMovie); 
+router.put('/:id', ensureAuth, movieController.updateMovie);
 
 /**
  * @swagger
  * /api/movies/{id}:
  *   delete:
  *     summary: Delete a movie by ID
- *     ...
+ *     tags:
+ *       - Movies
+ *     security:
+ *       - cookieAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: The movie ID
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Movie deleted successfully
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Movie not found
  */
-router.delete('/:id', ensureAuth, movieController.deleteMovie); 
+router.delete('/:id', ensureAuth, movieController.deleteMovie);
 
 module.exports = router;
